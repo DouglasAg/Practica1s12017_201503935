@@ -6,12 +6,14 @@
 package practica1s12017_201503935;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder; 
+import org.jdom2.input.SAXBuilder;
 
 /**
  *
@@ -77,83 +79,67 @@ public class Pimera extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     String ruta = "";
-    
+
     private void CargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarActionPerformed
         // TODO add your handling code here:
-        
-         JFileChooser fc = new JFileChooser();
+
+        JFileChooser fc = new JFileChooser();
 
         int respuesta = fc.showOpenDialog(this);
 
-        if (respuesta == JFileChooser.APPROVE_OPTION)
-        {
-
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
             File archivoElegido = fc.getSelectedFile();
             ruta = archivoElegido.getAbsolutePath();
-            JOptionPane.showMessageDialog(null, ruta);
         }
-        
-        
-        
+
+        leerXml();
     }//GEN-LAST:event_CargarActionPerformed
 
-    
-    private void leerXml(){
-     
-    SAXBuilder builder = new SAXBuilder();
-    File xmlFile = new File( ruta );
-    try
-    {
-        Document document = (Document) builder.build( xmlFile );
-        Element rootNode = document.getRootElement();
- 
-        //Se obtiene la lista de hijos de la raiz 'tables'
-        List list = rootNode.getChildren( "tabla" );
- 
-        //Se recorre la lista de hijos de 'tables'
-        for ( int i = 0; i &lt; list.size(); i++ )
-        {
-            //Se obtiene el elemento 'tabla'
-            Element tabla = (Element) list.get(i);
- 
-            //Se obtiene el atributo 'nombre' que esta en el tag 'tabla'
-            String nombreTabla = tabla.getAttributeValue("nombre");
- 
-            System.out.println( "Tabla: " + nombreTabla );
- 
-            //Se obtiene la lista de hijos del tag 'tabla'
-            List lista_campos = tabla.getChildren();
- 
-            System.out.println( "\tNombre\t\tTipo\t\tValor" );
- 
-            //Se recorre la lista de campos
-            for ( int j = 0; j &lt; lista_campos.size(); j++ )
-            {
-                //Se obtiene el elemento 'campo'
-                Element campo = (Element)lista_campos.get( j );
-         
-                //Se obtienen los valores que estan entre los tags '&lt;campo&gt;&lt;/campo&gt;'
-                //Se obtiene el valor que esta entre los tags '&lt;nombre&gt;&lt;/nombre&gt;'
-                String nombre = campo.getChildTextTrim("nombre");
- 
-                //Se obtiene el valor que esta entre los tags '&lt;tipo&gt;&lt;/tipo&gt;'
-                String tipo = campo.getChildTextTrim("tipo");
- 
-                //Se obtiene el valor que esta entre los tags '&lt;valor&gt;&lt;/valor&gt;'
-                String valor = campo.getChildTextTrim("valor");
- 
-                System.out.println( "\t"+nombre+"\t\t"+tipo+"\t\t"+valor);
+    private void leerXml() {
+
+        SAXBuilder builder = new SAXBuilder();
+        File xmlFile = new File(ruta);
+        try {
+            //Se crea el documento a traves del archivo
+            Document document = (Document) builder.build(xmlFile);
+            //Se obtiene la raiz 'tables'
+            Element rootNode = document.getRootElement();
+            //Se obtiene la lista de hijos de la raiz 'tables'
+            List list = rootNode.getChildren("scrabble");
+            //Se recorre la lista de hijos de 'tables'
+            for (int i = 0; i < list.size(); i++) {
+                //Se obtiene el elemento 'tabla'
+                Element tabla = (Element) list.get(i);
+
+                //Se obtiene la lista de hijos del tag 'tabla'
+                List lista_campos = tabla.getChildren();
+
+                //Se recorre la lista de campos
+                for (int j = 0; j < lista_campos.size(); j++) {
+                    //Se obtiene el elemento 'campo'
+                    Element campo = (Element) lista_campos.get(j);
+
+                    //Se obtienen los valores que estan entre los tags '<campo></campo>'
+                    //Se obtiene el valor que esta entre los tags '<nombre></nombre>'
+                    String nombre = campo.getChildTextTrim("nombre");
+
+                    //Se obtiene el valor que esta entre los tags '<tipo></tipo>'
+                    String tipo = campo.getChildTextTrim("tipo");
+
+                    //Se obtiene el valor que esta entre los tags '<valor></valor>'
+                    String valor = campo.getChildTextTrim("valor");
+
+                    System.out.println("\t" + nombre + "\t\t" + tipo + "\t\t" + valor);
+                }
             }
+        } catch (IOException io) {
+            System.out.println(io.getMessage());
+        } catch (JDOMException jdomex) {
+            System.out.println(jdomex.getMessage());
         }
-    }catch ( IOException io ) {
-        System.out.println( io.getMessage() );
-    }catch ( JDOMException jdomex ) {
-        System.out.println( jdomex.getMessage() );
+
     }
-        
-    }
-    
-    
+
     /**
      * @param args the command line arguments
      */
