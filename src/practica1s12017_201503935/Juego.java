@@ -517,6 +517,7 @@ public class Juego extends javax.swing.JFrame {
         meterletras();
         palabras();
         imagen();
+        nuevojugador();
 
         
         

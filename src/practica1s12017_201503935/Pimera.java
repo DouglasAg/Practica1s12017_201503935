@@ -6,6 +6,9 @@
 package practica1s12017_201503935;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -103,7 +106,11 @@ public class Pimera extends javax.swing.JFrame {
     private void JugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JugarActionPerformed
         // TODO add your handling code here:
         Juego jue=new Juego();
-        jue.valores(list,doble,dimension,triple);
+        try {
+            jue.valores(list,doble,dimension,triple);
+        } catch (IOException ex) {
+            Logger.getLogger(Pimera.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jue.setVisible(true);
         this.hide();
     }//GEN-LAST:event_JugarActionPerformed
