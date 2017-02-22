@@ -9,14 +9,16 @@ package practica1s12017_201503935;
  *
  * @author ddani
  */
-public class NodoSimple {
+public class NodoCircular {
 
     private String valor;
-    private NodoSimple siguiente;
+    private NodoCircular siguiente;
+    private ListaSimple letras;
 
     public void Nodo() {
         this.valor = "";
         this.siguiente = null;
+        this.letras = null;
     }
 
     public String getValor() {
@@ -27,11 +29,20 @@ public class NodoSimple {
         this.valor = valor;
     }
 
-    public NodoSimple getSiguiente() {
+    public NodoCircular getSiguiente() {
         return siguiente;
     }
 
-    public void setSiguiente(NodoSimple siguiente) {
+    public void setSiguiente(NodoCircular siguiente) {
         this.siguiente = siguiente;
     }
+
+    public ListaSimple getLetras() {
+        return letras;
+    }
+
+    public void setLetras(ListaSimple letras) {
+        this.letras = letras;
+    }
+
 }

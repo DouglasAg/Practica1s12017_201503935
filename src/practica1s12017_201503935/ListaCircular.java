@@ -9,13 +9,15 @@ package practica1s12017_201503935;
  *
  * @author ddani
  */
-public class ListaSimple {
+public class ListaCircular {
 
-    private NodoSimple inicio;
+    private NodoCircular inicio;
+    private NodoCircular ultimo;
     private int tamanio;
 
     public void Lista() {
         inicio = null;
+        ultimo = null;
         tamanio = 0;
     }
 
@@ -27,64 +29,56 @@ public class ListaSimple {
         return tamanio;
     }
 
-    public NodoSimple getCabeza(){
-        return inicio;
-    }
-    
-    public void agregarAlFinal(String valor) {
-        NodoSimple nuevo = new NodoSimple();
+    public void agregar(String valor, ListaSimple lista) {
+        NodoCircular nuevo = new NodoCircular();
         nuevo.setValor(valor);
+        nuevo.setLetras(lista);
+        
         if (esVacia()) {
             inicio = nuevo;
+            ultimo = nuevo;
+            ultimo.setSiguiente(inicio);
         } else {
-            NodoSimple aux = inicio;
-            while (aux.getSiguiente() != null) {
-                aux = aux.getSiguiente();
-            }
-            aux.setSiguiente(nuevo);
-        }
-        tamanio++;
-    }
-
-    public void agregarAlInicio(String valor) {
-        NodoSimple nuevo = new NodoSimple();
-        nuevo.setValor(valor);
-        if (esVacia()) {
-            inicio = nuevo;
-        } else {
+            ultimo.setSiguiente(nuevo);
             nuevo.setSiguiente(inicio);
-            inicio = nuevo;
+            ultimo = nuevo;
         }
         tamanio++;
     }
 
     public boolean buscar(String referencia) {
-        NodoSimple aux = inicio;
+        NodoCircular aux = inicio;
         boolean encontrado = false;
-        while (aux != null && encontrado != true) {
-            if (referencia == aux.getValor()) {
+        do {
+            if (referencia.equals(aux.getValor())) {
                 encontrado = true;
             } else {
                 aux = aux.getSiguiente();
             }
-        }
+        } while (aux != inicio && encontrado != true);
         return encontrado;
     }
 
+    /**
+     * Elimina la lista
+     */
     public void eliminar() {
         inicio = null;
+        ultimo = null;
         tamanio = 0;
     }
 
     public void listar() {
         if (!esVacia()) {
-            NodoSimple aux = inicio;
+
+            NodoCircular aux = inicio;
             int i = 0;
-            while (aux != null) {
-                System.out.println(i + "Dato" + aux.getValor());
+            System.out.print("-> ");
+            do {
+                System.out.print(i + ".[ " + aux.getValor() + " ]" + " ->  ");
                 aux = aux.getSiguiente();
                 i++;
-            }
+            } while (aux != inicio);
         }
     }
 

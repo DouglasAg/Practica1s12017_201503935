@@ -9,9 +9,9 @@ package practica1s12017_201503935;
  *
  * @author ddani
  */
-public class ListaSimple {
+public class Cola {
 
-    private NodoSimple inicio;
+    private NodoCola inicio;
     private int tamanio;
 
     public void Lista() {
@@ -27,17 +27,13 @@ public class ListaSimple {
         return tamanio;
     }
 
-    public NodoSimple getCabeza(){
-        return inicio;
-    }
-    
-    public void agregarAlFinal(String valor) {
-        NodoSimple nuevo = new NodoSimple();
+    public void agregar(String valor) {
+        NodoCola nuevo = new NodoCola();
         nuevo.setValor(valor);
         if (esVacia()) {
             inicio = nuevo;
         } else {
-            NodoSimple aux = inicio;
+            NodoCola aux = inicio;
             while (aux.getSiguiente() != null) {
                 aux = aux.getSiguiente();
             }
@@ -46,39 +42,20 @@ public class ListaSimple {
         tamanio++;
     }
 
-    public void agregarAlInicio(String valor) {
-        NodoSimple nuevo = new NodoSimple();
-        nuevo.setValor(valor);
-        if (esVacia()) {
-            inicio = nuevo;
+    public String eliminar() {
+        NodoCola aux = new NodoCola();
+        aux = inicio;
+        if (aux.getSiguiente() == null) {
+            inicio = null;
         } else {
-            nuevo.setSiguiente(inicio);
-            inicio = nuevo;
+            inicio = aux.getSiguiente();
         }
-        tamanio++;
-    }
-
-    public boolean buscar(String referencia) {
-        NodoSimple aux = inicio;
-        boolean encontrado = false;
-        while (aux != null && encontrado != true) {
-            if (referencia == aux.getValor()) {
-                encontrado = true;
-            } else {
-                aux = aux.getSiguiente();
-            }
-        }
-        return encontrado;
-    }
-
-    public void eliminar() {
-        inicio = null;
-        tamanio = 0;
+        return aux.getValor();
     }
 
     public void listar() {
         if (!esVacia()) {
-            NodoSimple aux = inicio;
+            NodoCola aux = inicio;
             int i = 0;
             while (aux != null) {
                 System.out.println(i + "Dato" + aux.getValor());

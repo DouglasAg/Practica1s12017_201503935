@@ -9,16 +9,15 @@ package practica1s12017_201503935;
  *
  * @author ddani
  */
-public class NodoSimple {
-
+public class NodoCola {
     private String valor;
-    private NodoSimple siguiente;
+    private NodoCola siguiente;
 
-    public void Nodo() {
+    public void Nodo(){
         this.valor = "";
         this.siguiente = null;
     }
-
+    
     public String getValor() {
         return valor;
     }
@@ -27,11 +26,11 @@ public class NodoSimple {
         this.valor = valor;
     }
 
-    public NodoSimple getSiguiente() {
+    public NodoCola getSiguiente() {
         return siguiente;
     }
 
-    public void setSiguiente(NodoSimple siguiente) {
+    public void setSiguiente(NodoCola siguiente) {
         this.siguiente = siguiente;
     }
 }

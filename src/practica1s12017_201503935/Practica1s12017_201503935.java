@@ -18,7 +18,8 @@ public class Practica1s12017_201503935 {
         // TODO code application logic here
         Pimera prim=new Pimera();
         prim.setVisible(true);
-                
+                /*Juego jue=new Juego();
+                jue.setVisible(true);*/
     }
     
 }
